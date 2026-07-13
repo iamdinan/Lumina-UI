@@ -21,12 +21,16 @@ export function Sidebar({ isOpen }) {
   const actionClass = (variant = "ghost") =>
     `btn btn-sm w-full justify-center rounded-xl px-4 text-center ${variant}`;
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
-    <aside className="w-56 shrink-0 border-r border-base-300 h-[calc(100vh-64px)] sticky top-16 p-4 flex flex-col justify-between">
+    <aside
+      className={`
+        fixed md:sticky top-16 left-0 bottom-0 md:bottom-auto
+        w-56 shrink-0 border-r border-base-300 bg-base-100 md:bg-transparent
+        h-[calc(100vh-64px)] p-4 flex flex-col justify-between z-20 md:z-auto
+        transition-transform duration-200 md:transform-none
+        ${isOpen ? "translate-x-0" : "-translate-x-full md:hidden"}
+      `}
+    >
       <nav className="flex flex-col gap-1">
         <Link to="/" className={linkClass("/")}>
           Home

@@ -30,9 +30,9 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className="stat">
-          <div className="stat-title">Hours</div>
+          <div className="stat-title">Months</div>
           <div className="stat-value">
-            {statsLoading ? "—" : stats.total_hours}
+            {statsLoading ? "—" : stats.total_months}
           </div>
         </div>
         <div className="stat">
@@ -42,9 +42,9 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className="stat">
-          <div className="stat-title">Months</div>
+          <div className="stat-title">Hours</div>
           <div className="stat-value">
-            {statsLoading ? "—" : stats.total_months}
+            {statsLoading ? "—" : stats.total_hours}
           </div>
         </div>
       </div>
