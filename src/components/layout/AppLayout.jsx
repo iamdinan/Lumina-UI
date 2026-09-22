@@ -1,18 +1,16 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 
 export function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
-  const location = useLocation();
 
-  // Close sidebar on navigation on mobile devices
-  useEffect(() => {
+  function closeSidebarOnMobile() {
     if (window.innerWidth < 768) {
       setIsSidebarOpen(false);
     }
-  }, [location]);
+  }
 
   // Handle window resizing to automatically adjust sidebar visibility
   useEffect(() => {
@@ -38,7 +36,7 @@ export function AppLayout() {
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
-        <Sidebar isOpen={isSidebarOpen} />
+        <Sidebar isOpen={isSidebarOpen} onNavigate={closeSidebarOnMobile} />
         <main className="flex-1 px-4 py-6 md:px-6">
           <Outlet />
         </main>

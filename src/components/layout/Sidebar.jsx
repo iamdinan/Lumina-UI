@@ -1,13 +1,14 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 
-export function Sidebar({ isOpen }) {
+export function Sidebar({ isOpen, onNavigate }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleLogout() {
     logout();
+    onNavigate();
     navigate("/");
   }
 
@@ -32,13 +33,21 @@ export function Sidebar({ isOpen }) {
       `}
     >
       <nav className="flex flex-col gap-1">
-        <Link to="/" className={linkClass("/")}>
+        <Link to="/" className={linkClass("/")} onClick={onNavigate}>
           Home
         </Link>
         {user && (
-          <Link to="/my-list" className={linkClass("/my-list")}>
-            My List
-          </Link>
+          <>
+            <Link to="/my-list" className={linkClass("/my-list")} onClick={onNavigate}>
+              My List
+            </Link>
+            <Link to="/my-activity" className={linkClass("/my-activity")} onClick={onNavigate}>
+              My Activity
+            </Link>
+            <Link to="/export" className={linkClass("/export")} onClick={onNavigate}>
+              Export
+            </Link>
+          </>
         )}
       </nav>
 
@@ -47,6 +56,7 @@ export function Sidebar({ isOpen }) {
           <div className="flex flex-col gap-2">
             <Link
               to="/profile"
+              onClick={onNavigate}
               className={actionClass(
                 "border-0 bg-transparent text-white shadow-none hover:bg-transparent hover:text-primary",
               )}
@@ -62,10 +72,10 @@ export function Sidebar({ isOpen }) {
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            <Link to="/login" className={actionClass("btn-neutral text-white")}>
+            <Link to="/login" className={actionClass("btn-neutral text-white")} onClick={onNavigate}>
               Login
             </Link>
-            <Link to="/register" className={actionClass("btn-primary")}>
+            <Link to="/register" className={actionClass("btn-primary")} onClick={onNavigate}>
               Register
             </Link>
           </div>

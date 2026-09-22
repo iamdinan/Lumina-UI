@@ -1,7 +1,8 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Sparkles, Search as SearchIcon } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { searchSeries, importSeries } from "@/api/series.api";
+import { SeriesLoading } from "@/components/SeriesLoading";
 
 export default function SearchPage() {
   const [searchParams] = useSearchParams();
@@ -56,10 +57,7 @@ export default function SearchPage() {
       )}
 
       {importMutation.isPending && (
-        <div className="alert alert-info mb-4 rounded-2xl border-0">
-          <span className="loading loading-spinner loading-sm" />
-          <span>Importing series details...</span>
-        </div>
+        <SeriesLoading fullScreen />
       )}
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">

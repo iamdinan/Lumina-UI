@@ -1,6 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { SeriesLoading } from "@/components/SeriesLoading";
 import {
   getPopularSeries,
   getTopRatedSeries,
@@ -63,7 +63,6 @@ function SeriesGrid({
 }
 
 export default function HomePage() {
-  const { user } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -115,10 +114,7 @@ export default function HomePage() {
       </div>
 
       {importMutation.isPending && (
-        <div className="alert alert-info">
-          <span className="loading loading-spinner loading-sm" />
-          <span>Loading series...</span>
-        </div>
+        <SeriesLoading fullScreen />
       )}
 
       <SeriesGrid

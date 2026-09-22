@@ -8,6 +8,8 @@ import MyListPage from "@/pages/MyListPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ProfilePage from "@/pages/ProfilePage";
+import MyActivityPage from "@/pages/MyActivityPage";
+import ExportPage from "@/pages/ExportPage";
 function App() {
   return (
     <Routes>
@@ -30,6 +32,22 @@ function App() {
           element={
             <ProtectedRoute>
               <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-activity"
+          element={
+            <ProtectedRoute>
+              <MyActivityPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/export"
+          element={
+            <ProtectedRoute>
+              <ExportPage />
             </ProtectedRoute>
           }
         />

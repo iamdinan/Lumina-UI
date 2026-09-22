@@ -22,7 +22,10 @@ export default function MyListPage() {
 
   const removeMutation = useMutation({
     mutationFn: (seriesId) => removeSeriesFromList(seriesId),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["mySeries"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["mySeries"] });
+      queryClient.invalidateQueries({ queryKey: ["myActivity"] });
+    },
   });
 
   return (

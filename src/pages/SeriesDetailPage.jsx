@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
+import { SeriesLoading } from "@/components/SeriesLoading";
 import {
   getSeriesProgress,
   markWatched,
@@ -43,6 +44,7 @@ export default function SeriesDetailPage() {
       queryClient.invalidateQueries({ queryKey: ["seriesStatus", seriesId] });
       queryClient.invalidateQueries({ queryKey: ["mySeries"] });
       queryClient.invalidateQueries({ queryKey: ["myStats"] });
+      queryClient.invalidateQueries({ queryKey: ["myActivity"] });
     },
   });
 
@@ -56,6 +58,7 @@ export default function SeriesDetailPage() {
       queryClient.invalidateQueries({ queryKey: ["seriesStatus", seriesId] });
       queryClient.invalidateQueries({ queryKey: ["mySeries"] });
       queryClient.invalidateQueries({ queryKey: ["myStats"] });
+      queryClient.invalidateQueries({ queryKey: ["myActivity"] });
     },
   });
 
@@ -65,6 +68,7 @@ export default function SeriesDetailPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["seriesProgress", seriesId] });
       queryClient.invalidateQueries({ queryKey: ["myStats"] });
+      queryClient.invalidateQueries({ queryKey: ["myActivity"] });
     },
   });
 
@@ -87,11 +91,7 @@ export default function SeriesDetailPage() {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center mt-8">
-        <span className="loading loading-spinner loading-lg" />
-      </div>
-    );
+    return <SeriesLoading />;
   }
 
   if (isError) {

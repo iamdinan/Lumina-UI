@@ -5,6 +5,13 @@ export async function getSeriesProgress(seriesId) {
   return res.data;
 }
 
+export async function getWatchActivity(year) {
+  const res = await axiosClient.get("/users/me/activity", {
+    params: year ? { year } : {},
+  });
+  return res.data;
+}
+
 export async function markWatched(episodeId) {
   const res = await axiosClient.post(`/users/me/episodes/${episodeId}`);
   return res.data;
