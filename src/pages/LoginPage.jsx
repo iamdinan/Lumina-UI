@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "@/hooks/useAuth";
+import { AuthPageBackdrop } from "@/components/layout/AuthPageBackdrop";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -35,8 +36,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-[70vh]">
-      <div className="card w-full max-w-sm bg-base-100 shadow-md border">
+    <AuthPageBackdrop>
+      <div className="card w-full max-w-sm bg-base-100 shadow-md">
         <div className="card-body">
           <h2 className="card-title">Welcome back</h2>
 
@@ -94,6 +95,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-    </div>
+    </AuthPageBackdrop>
   );
 }

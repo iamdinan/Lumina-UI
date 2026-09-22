@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/hooks/useAuth";
 import { SeriesLoading } from "@/components/SeriesLoading";
 import {
   getSeriesProgress,
@@ -17,19 +15,16 @@ import { markSeriesCompleted } from "@/api/userEpisodes.api";
 
 export default function SeriesDetailPage() {
   const { seriesId } = useParams();
-  const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["seriesProgress", seriesId],
     queryFn: () => getSeriesProgress(seriesId),
-    enabled: !!user, // progress requires auth; skip if not logged in
   });
 
   const { data: statusData } = useQuery({
     queryKey: ["seriesStatus", seriesId],
     queryFn: () => getSeriesStatus(seriesId),
-    enabled: !!user,
   });
 
   const isCompleted = statusData?.status === "completed";
@@ -71,24 +66,6 @@ export default function SeriesDetailPage() {
       queryClient.invalidateQueries({ queryKey: ["myActivity"] });
     },
   });
-
-  if (!user) {
-    return (
-      <div className="mx-auto mt-8 max-w-md rounded-3xl border border-base-300 bg-base-100/80 p-6 text-center shadow-sm">
-        <h2 className="text-lg font-semibold">Track this series</h2>
-        <p className="mt-2 text-sm opacity-70">
-          Sign in to mark episodes, keep progress, and manage this series in
-          your list.
-        </p>
-        <Link
-          to="/login"
-          className="btn btn-primary btn-sm mt-5 rounded-full px-5"
-        >
-          Log in
-        </Link>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return <SeriesLoading />;

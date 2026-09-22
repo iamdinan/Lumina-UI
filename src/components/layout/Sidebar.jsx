@@ -33,11 +33,11 @@ export function Sidebar({ isOpen, onNavigate }) {
       `}
     >
       <nav className="flex flex-col gap-1">
-        <Link to="/" className={linkClass("/")} onClick={onNavigate}>
-          Home
-        </Link>
         {user && (
           <>
+            <Link to="/" className={linkClass("/")} onClick={onNavigate}>
+              Home
+            </Link>
             <Link to="/my-list" className={linkClass("/my-list")} onClick={onNavigate}>
               My List
             </Link>

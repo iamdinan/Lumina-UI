@@ -2,12 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Menu, Search } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Navbar({ onToggleSidebar }) {
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (location.state?.focusSearch) {
@@ -35,27 +37,32 @@ export function Navbar({ onToggleSidebar }) {
           >
             <Menu className="w-4 h-4" />
           </button>
-          <Link to="/" className="text-xl font-bold select-none">
+          <Link
+            to={user ? "/" : "/login"}
+            className="text-xl font-bold select-none"
+          >
             Lumina
           </Link>
         </div>
 
-        <form
-          onSubmit={handleSearch}
-          className="flex items-center gap-2 w-full max-w-xs"
-        >
-          <input
-            type="text"
-            placeholder="Search series..."
-            ref={inputRef}
-            className="input input-bordered input-sm w-full focus:outline-none focus:border-base-content/20 transition-colors duration-150"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="submit" className="btn btn-square btn-sm btn-primary">
-            <Search className="w-4 h-4" />
-          </button>
-        </form>
+        {user && (
+          <form
+            onSubmit={handleSearch}
+            className="flex items-center gap-2 w-full max-w-xs"
+          >
+            <input
+              type="text"
+              placeholder="Search series..."
+              ref={inputRef}
+              className="input input-bordered input-sm w-full focus:outline-none focus:border-base-content/20 transition-colors duration-150"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit" className="btn btn-square btn-sm btn-primary">
+              <Search className="w-4 h-4" />
+            </button>
+          </form>
+        )}
       </div>
     </nav>
   );
