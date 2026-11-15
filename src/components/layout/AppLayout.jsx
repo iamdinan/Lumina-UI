@@ -41,11 +41,8 @@ export function AppLayout() {
           <Outlet />
         </main>
       </div>
-      <div className="pointer-events-none fixed bottom-4 right-5 z-30 flex items-center gap-2 text-[11px] tracking-wide text-base-content/45">
-        <span className="h-px w-5 bg-primary/45" />
-        <span>
-          Enchanted by <strong className="font-semibold text-base-content/65">Dinan</strong> 🪄
-        </span>
+      <div className="pointer-events-none fixed bottom-5 right-4 z-30 rounded-md bg-[#031226]/95 px-2 py-1 text-[10px] tracking-wide text-neutral-content/70 backdrop-blur-sm">
+        Enchanted by <strong className="font-semibold text-neutral-content/90">Dinan</strong> 🪄
       </div>
     </div>
   );
